@@ -34,7 +34,7 @@ func main() {
 	var dirPth *string
 	var namespace *string
 	var name *string
-	var files = []string{"ca.cert", "client.yaml", "servers.conf"}
+	var files = []string{"ca.crt", "client.yaml", "servers.conf"}
 	var data = make(map[string][]byte)
 	var secretType = v1.SecretTypeOpaque
 
