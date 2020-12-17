@@ -6,6 +6,7 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -23,7 +24,6 @@ import (
 	// _ "k8s.io/client-go/plugin/pkg/client/auth/oidc"
 	// _ "k8s.io/client-go/plugin/pkg/client/auth/openstack"
 )
-
 
 // go build -o app .
 // ./app -kubeconfig=/root/.kube/config -dirPth=/home/file/87lENOv
@@ -67,6 +67,7 @@ func main() {
 		if content, err := ioutil.ReadFile(fiPth); err == nil {
 			data[fi] = content
 		} else {
+			fmt.Println(err)
 			panic(err)
 		}
 
