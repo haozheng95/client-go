@@ -87,6 +87,7 @@ func main() {
 	_, err = clientset.CoreV1().Secrets(*namespace).Create(context.TODO(), secret, metav1.CreateOptions{})
 
 	if err != nil {
+		fmt.Println(err)
 		panic(err.Error())
 	}
 
