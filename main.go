@@ -45,7 +45,7 @@ func main() {
 	}
 	dirPth = flag.String("dirPth", "", "")
 	namespace = flag.String("namespace", "kube-system", "")
-	name = flag.String("name", "bitfusion-sercet", "")
+	name = flag.String("name", "bitfusion-secret", "")
 
 	flag.Parse()
 
@@ -85,7 +85,6 @@ func main() {
 
 	// create the secret
 	_, err = clientset.CoreV1().Secrets(*namespace).Create(context.TODO(), secret, metav1.CreateOptions{})
-
 	if err != nil {
 		fmt.Println(err)
 		panic(err.Error())
