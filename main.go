@@ -4,6 +4,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"io/ioutil"
 	"k8s.io/api/core/v1"
@@ -72,17 +73,17 @@ func main() {
 	}
 
 	// assembly the secret
-	secret := new(v1.Secret{
+	secret := &v1.Secret{
 		Data: data,
 		Type: secretType,
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      *name,
 			Namespace: *namespace,
 		},
-	})
+	}
 
 	// create the secret
-	_, err = clientset.CoreV1().Secrets(*namespace).Create(secret)
+	_, err = clientset.CoreV1().Secrets(*namespace).Create(context.TODO(), secret, metav1.CreateOptions{})
 
 	if err != nil {
 		panic(err.Error())
