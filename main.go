@@ -7,6 +7,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
@@ -95,10 +96,16 @@ func main() {
 			fmt.Println(err)
 			panic(err.Error())
 		}
-		fmt.Println(secret)
-		secret.Namespace = *namespace
+		newSecret := &v1.Secret{
+			Data: secret.Data,
+			Type: secret.Type,
+			ObjectMeta: metav1.ObjectMeta{
+				Name:      *name,
+				Namespace: *namespace,
+			},
+		}
 		// create the secret
-		_, err = clientset.CoreV1().Secrets(*namespace).Create(context.TODO(), secret, metav1.CreateOptions{})
+		_, err = clientset.CoreV1().Secrets(*namespace).Create(context.TODO(), newSecret, metav1.CreateOptions{})
 		if err != nil {
 			fmt.Println(err)
 			panic(err.Error())
