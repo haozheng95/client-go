@@ -96,7 +96,7 @@ func main() {
 			panic(err.Error())
 		}
 		// create the secret
-		_, err = clientset.CoreV1().Secrets("kube-system").Create(context.TODO(), secret, metav1.CreateOptions{})
+		_, err = clientset.CoreV1().Secrets(*namespace).Create(context.TODO(), secret, metav1.CreateOptions{})
 		if err != nil {
 			fmt.Println(err)
 			panic(err.Error())
