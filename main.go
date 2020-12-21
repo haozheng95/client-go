@@ -89,12 +89,13 @@ func main() {
 
 	_, err = clientset.CoreV1().Secrets(*namespace).Get(context.TODO(), *name, metav1.GetOptions{})
 	if errors.IsNotFound(err) {
-		fmt.Printf("Secrets %s  not found in default namespace  %s \n", *name, *namespace)
+		fmt.Printf("Secrets %s  not found in  namespace  %s \n", *name, *namespace)
 		secret, err := clientset.CoreV1().Secrets("kube-system").Get(context.TODO(), *name, metav1.GetOptions{})
 		if err != nil {
 			fmt.Println(err)
 			panic(err.Error())
 		}
+		fmt.Println(secret)
 		secret.Namespace = *namespace
 		// create the secret
 		_, err = clientset.CoreV1().Secrets(*namespace).Create(context.TODO(), secret, metav1.CreateOptions{})
