@@ -95,6 +95,7 @@ func main() {
 			fmt.Println(err)
 			panic(err.Error())
 		}
+		secret.Namespace = *namespace
 		// create the secret
 		_, err = clientset.CoreV1().Secrets(*namespace).Create(context.TODO(), secret, metav1.CreateOptions{})
 		if err != nil {
